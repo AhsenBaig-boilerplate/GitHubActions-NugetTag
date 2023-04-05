@@ -15,4 +15,4 @@ jobs:
           $nuget_version = "v" + $tag -replace '[^0-9\.]',''
           "NUGET_VERSION=$nuget_version" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Print NuGet-Compatible Version
-        run: echo "NuGet-Compatible Version: ${{ env.NUGET_VERSION }}"
+        run: echo "NuGet-Compatible Version:${{ env.NUGET_VERSION }}"
