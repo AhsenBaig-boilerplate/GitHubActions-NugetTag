@@ -1,0 +1,18 @@
+name: Transform Tag for NuGet
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  transform-tag:
+    runs-on: windows-latest
+    if: ${{ github.ref_type == 'tag' }}
+    steps:
+      - name: Transform Tag
+        run: |
+          $tag = $env:GITHUB_REF.Replace("refs/tags/", "")
+          $nuget_version = "v" + $tag -replace '[^0-9\.]',''
+          "NUGET_VERSION=$nuget_version" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Print NuGet-Compatible Version
+        run: echo "NuGet-Compatible Version: ${{ env.NUGET_VERSION }}"
